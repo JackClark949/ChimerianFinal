@@ -10,6 +10,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] Camera playerCam;
     [SerializeField] float raycastRange = 100f;
     [SerializeField] float damage = 10f;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip pistolFire;
     
 
     private InputAction shootAction;
@@ -47,6 +49,8 @@ public class Weapon : MonoBehaviour
         Raycast();
         decreaseAmmo();
         UpdateAmmoText();
+        audioSource.Play();
+        Debug.Log("Played sound effect");
     }
 
     public void Reload(InputAction.CallbackContext context)
