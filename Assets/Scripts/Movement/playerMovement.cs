@@ -42,6 +42,8 @@ public class playerMovement : MonoBehaviour
 
         Vector3 movement = cameraForward * direction.y + cameraRight * direction.x;
         controller.Move(movement * playerSpeed * Time.deltaTime);
+        //controller.SimpleMove(movement);
+        
 
 
         //Sprinting
