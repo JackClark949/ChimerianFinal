@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 7747537719441718257}
   - component: {fileID: 7747537719441718256}
   m_Layer: 0
-  m_Name: Note1
+  m_Name: WrittenNote1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8bfd0164fd16c4149ae29cd8eff1c338, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,5 +144,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteUI: {fileID: 0}
   player: {fileID: 0}
-  Camera: {fileID: 0}
   NoteMesh: {fileID: 7747537719441718262}

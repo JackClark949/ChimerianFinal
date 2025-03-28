@@ -7,7 +7,6 @@ public class Note : MonoBehaviour
     public GameObject NoteUI;
     bool toggle;
     public playerMovement player;
-    public cameraController Camera;
     public Renderer NoteMesh;
 
     public void OpenCloseNote()
@@ -18,14 +17,12 @@ public class Note : MonoBehaviour
             NoteUI.SetActive(false);
             NoteMesh.enabled = true;
             player.enabled = true;
-            Camera.enabled = true;
         }
         if (toggle == true)
         {
             NoteUI.SetActive(true);
             NoteMesh.enabled = false;
             player.enabled = false;
-            Camera.enabled = false;
         }
     }
 }
