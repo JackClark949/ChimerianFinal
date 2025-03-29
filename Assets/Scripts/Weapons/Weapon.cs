@@ -53,10 +53,14 @@ public class Weapon : MonoBehaviour
     {
         if (totalAmmo == 10 && ammoCount == 0)
         {
-            totalAmmo -= 5;
-            ammoCount = 5;
-            OnEnable();
-            Debug.Log("Added ammo to ammoCount");
+            if (context.performed)
+            {
+                totalAmmo -= 5;
+                ammoCount = 5;
+                OnEnable();
+                Debug.Log("Added ammo to ammoCount");
+            }
+            
         }
 
         if (totalAmmo == 5 && ammoCount == 0)
@@ -78,8 +82,23 @@ public class Weapon : MonoBehaviour
         if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, raycastRange))
         {
             Debug.Log(hit.collider.gameObject);
-            //enemyHealth enemyTarget = hit.collider.GetComponent<enemyHealth>();
-            //enemyTarget.TakeDamage(damage);
+            miniGilHealth giltarget = hit.collider.GetComponent<miniGilHealth>();
+            enemyHealth enemyTarget = hit.collider.GetComponent<enemyHealth>();
+
+            if (enemyTarget != null)
+            {
+                enemyTarget.TakeDamage(damage);
+
+            }
+            if (giltarget != null)
+            {
+                giltarget.TakeDamage(damage);
+            }
+            
+
+            
+            
+            
 
         }
 

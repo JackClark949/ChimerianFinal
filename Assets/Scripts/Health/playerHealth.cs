@@ -5,29 +5,58 @@ using UnityEngine;
 
 
 
+
 public class playerHealth : MonoBehaviour
 {
     [SerializeField]
     private float maxHealth = 100f;
-
     [SerializeField]
-    float currentHealth;
+    private float currentHealth;
+
     float addHealth = 50f;
 
-    public Healthbar healthbar; 
-
-
+    public Healthbar healthbar;
     [SerializeField]
     float hpDeductTime = 1f;
     [SerializeField]
     public float nextHPDeductTime;
 
+
+
     private void Start()
     {
         currentHealth = maxHealth;
-        healthbar.SetSliderMax(maxHealth);
-        
+        healthbar.SetSliderMax(currentHealth);
+
+
+
+
+
+
     }
+
+
+    private void Update()
+    {
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+
+
+
+    
+   
+
+    
 
     private void DeductHP()
     {
@@ -40,30 +69,32 @@ public class playerHealth : MonoBehaviour
 
 
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float amount)
     {
-        currentHealth -= damage;
-        healthbar.SetSlider(currentHealth);
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
+        currentHealth -= amount;
+        healthbar.SetSliderMax(currentHealth);
+
+
+
+
+
+       
 
 
 
     }
 
-    public void Healing()
-    {
-        currentHealth += addHealth;
-        if (currentHealth > 100)
-        {
-            currentHealth = 100;
-        }
+    //public void Healing()
+    //{
+        //currentHealth += addHealth;
+        //if (currentHealth > 100)
+        //{
+            //currentHealth = 100;
+        //}
 
 
 
-    }
+    //}
 }
 
     

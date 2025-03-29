@@ -17,59 +17,66 @@ public class enemyDetection : MonoBehaviour
     private Transform enemysight;
     [SerializeField]
     private float enemySightRange = 20f;
+    private bool IsPlayerDetected;
+    [SerializeField]
+    private float fieldOfViewRange = 68f;
+    [SerializeField]
+    private float minPlayerDetectionDistance = 1f;
+    private float rayRange = 20f;
+
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         enemySpeed = agent.speed;
-        Time.timeScale = 1;
+
     }
 
     private void Update()
     {
-        enemySightDetection();
+        CanSeePlayer();
     }
 
-    private void enemySightDetection()
+    protected bool CanSeePlayer()
     {
         RaycastHit hit;
-
-
-        if (Physics.Raycast(enemysight.position, enemysight.forward, out hit, enemySightRange))
+        Vector3 rayDirection = player.transform.position - transform.position;
+        if ((Vector3.Angle(rayDirection, transform.forward)) <= fieldOfViewRange * 0.5f)
         {
-
-            if (hit.collider.CompareTag("Player"))
+            if (Physics.Raycast(enemysight.position, enemysight.forward, out hit, fieldOfViewRange))
             {
-                agent.SetDestination(player.position); // Chase the player
-            }
-            else
-            {
+                patrol.StopPatrol();
 
-                //HandleWallDetection(hit);
-            }
-        }
-        else
-        {
+                //Debug.Log("Chasing Player");
 
-            patrol.Patrol();
+                return (hit.transform.CompareTag("Player"));
+
+            }
+
         }
+        patrol.Patrol();
+        return false;
+
+
+
+
+
+
+
+
+
     }
 
-   /* private void HandleWallDetection(RaycastHit hit)
+    private void OnDrawGizmos()
     {
-
-        if (hit.collider != null && hit.collider.CompareTag("Wall"))
         {
-            gameObject.transform.Rotate(0, -180, 0);
+            Gizmos.color = Color.red;
+            Vector3 direction = enemysight.TransformDirection(Vector3.forward);
+            Gizmos.DrawWireCube(enemysight.position, direction * fieldOfViewRange);
         }
-    }*/
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Vector3 direction = enemysight.TransformDirection(Vector3.forward);
-        Gizmos.DrawRay(enemysight.position, direction * enemySightRange);
     }
 }
+
+
 
 

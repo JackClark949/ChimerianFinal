@@ -9,8 +9,8 @@ public class enemyPatrol : MonoBehaviour
     private Transform[] patrolPoints;
     private int currentPatrolIndex = 0;
 
-    private NavMeshAgent navMeshAgent;
-
+    private NavMeshAgent agent;
+    public GameObject player;
     [SerializeField]
     private float patrolSpeed = 3f;
 
@@ -20,32 +20,37 @@ public class enemyPatrol : MonoBehaviour
     private void Start()
     {
 
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        navMeshAgent.speed = patrolSpeed;
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = patrolSpeed;
 
 
         if (patrolPoints.Length > 0)
         {
 
-            navMeshAgent.SetDestination(patrolPoints[currentPatrolIndex].position);
+            agent.SetDestination(patrolPoints[currentPatrolIndex].position);
         }
     }
 
     private void Update()
     {
-        Patrol();
+
     }
 
     public void Patrol()
     {
 
-        if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= waypointReachThreshold)
+        if (!agent.pathPending && agent.remainingDistance <= waypointReachThreshold)
         {
 
             currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
 
 
-            navMeshAgent.SetDestination(patrolPoints[currentPatrolIndex].position);
+            agent.SetDestination(patrolPoints[currentPatrolIndex].position);
         }
+    }
+
+    public void StopPatrol()
+    {
+        agent.SetDestination(player.transform.position);
     }
 }
