@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab97a22cf523d7418be45f52681bb94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PuzzlePiece2: {fileID: 0}
-  OpenDrawer: {fileID: 0}
+  PuzzlePiece2: {fileID: 5810039453570706152}
+  Drawer: {fileID: 0}
   rotations: []
   rotations2: []
 --- !u!114 &5810039453570706158
@@ -80,7 +80,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5810039453570706157}
         m_TargetAssemblyTypeName: blockRotate, Assembly-CSharp
-        m_MethodName: RotateBlock
+        m_MethodName: RotateBlock2
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
