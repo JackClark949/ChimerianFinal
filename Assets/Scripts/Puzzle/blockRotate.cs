@@ -6,20 +6,24 @@ public class blockRotate : MonoBehaviour
 {
     PlayerInput playerInput;
     InputAction Rotate;
-    openDrawer openDrawer;
-    //public GameObject openDrawerr;
+    
     private bool blockRotation = false;
-    blockRotate2 blockrotate2;
+    private bool blockRotation2 = false;
+    public GameObject PuzzlePiece2;
+    public GameObject Drawer;
+    private openDrawer OpenDrawerScript;
     MeshRenderer mesh;
+    MeshRenderer mesh2;
+    
 
 
 
-    //public GameObject rotatePiece2;
+    
 
     public Quaternion[] rotations;
-   
+    public Quaternion[] rotations2;
     private int currentRotation = 0;
-    
+    int currentRotation2 = 0;
 
 
 
@@ -30,23 +34,34 @@ public class blockRotate : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         Rotate = playerInput.actions.FindAction("Rotate");
-        blockrotate2 = GetComponent<blockRotate2>();
-        //openDrawer = openDrawerr.GetComponent<openDrawer>();
+        OpenDrawerScript = Drawer.GetComponent<openDrawer>();
+       
         mesh = GetComponentInChildren<MeshRenderer>();
+        mesh2 = PuzzlePiece2.GetComponentInChildren<MeshRenderer>();
 
+        
+        
 
         rotations = new Quaternion[]
         {
             Quaternion.Euler(45, 0, 0),
-            Quaternion.Euler(75, 0, 0),
+            Quaternion.Euler(60, 0, 0),
             Quaternion.Euler(52, 0, 0)
 
 
         };
 
-       
+        rotations2 = new Quaternion[]
+        {
+            Quaternion.Euler(60, 0, 0),
+            Quaternion.Euler(30, 0, 0),
+            Quaternion.Euler(80, 0, 0),
+        };
+
 
     }
+
+   
 
 
 
@@ -55,6 +70,7 @@ public class blockRotate : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             blockRotation = true;
+            blockRotation2 = true;
 
 
         }
@@ -63,6 +79,7 @@ public class blockRotate : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         blockRotation = false;
+        blockRotation2 = false;
 
     }
 
@@ -73,42 +90,57 @@ public class blockRotate : MonoBehaviour
         {
 
             currentRotation = (currentRotation + 1) % rotations.Length;
-            gameObject.transform.rotation = rotations[currentRotation];
-            Debug.Log("Rotated");
+            mesh.transform.rotation = rotations[currentRotation];
 
 
-
-            //float xRotation = gameObject.transform.rotation.eulerAngles.x;
             float xRotation = mesh.transform.rotation.eulerAngles.x;
-            float xRotation2 = blockrotate2.mesh.transform.rotation.eulerAngles.x;
-            
+            float xRotation2 = mesh2.transform.rotation.eulerAngles.x;
 
-            if (xRotation == 75 && xRotation2 == 80)
+            if (((Mathf.Abs(xRotation - 45) < 0.1f)) && ((Mathf.Abs(xRotation2 - 30) < 0.1f)))
             {
+                OpenDrawerScript.playAnim();
                 Debug.Log("Reached both rotations");
+
+                
+                
+                
+                
+                  
+                
             }
-            
+
+
+
+
+
+
+
+
 
 
 
 
         }
 
-        
-        
+    }
 
-        
+    public void RotateBlock2(InputAction.CallbackContext context)
+    {
+        if (blockRotation == true && context.performed)
+        {
+            currentRotation2 = (currentRotation2 + 1) % rotations2.Length;
+            mesh2.transform.rotation = rotations2[currentRotation2];
+            
 
-
-
-
-
-
+            
+        }
     }
 
 
-
+    
 
 }
+
+
 
 

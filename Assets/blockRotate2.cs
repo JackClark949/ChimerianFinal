@@ -8,7 +8,7 @@ public class blockRotate2 : MonoBehaviour
     PlayerInput playerInput;
     InputAction Rotate;
     private bool blockRotation = false;
-    public MeshRenderer mesh;
+    public MeshRenderer mesh2;
     public Quaternion[] rotations;
     int currentRotation2 = 0;
     
@@ -17,7 +17,7 @@ public class blockRotate2 : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         Rotate = playerInput.actions.FindAction("Rotate");
-        mesh = gameObject.GetComponentInChildren<MeshRenderer>();
+        mesh2 = gameObject.GetComponentInChildren<MeshRenderer>();
 
         rotations = new Quaternion[]
         {
@@ -45,10 +45,10 @@ public class blockRotate2 : MonoBehaviour
         if (blockRotation == true && context.performed)
         {
             currentRotation2 = (currentRotation2 + 1) % rotations.Length;
-            mesh.transform.rotation = rotations[currentRotation2];
+            mesh2.transform.rotation = rotations[currentRotation2];
             Debug.Log("Rotated 2");
 
-             float xRotation2 = mesh.transform.rotation.eulerAngles.x;
+             float xRotation2 = mesh2.transform.rotation.eulerAngles.x;
         } 
     }
 

@@ -12,10 +12,10 @@ public class openDrawer : MonoBehaviour
     }
     public void playAnim()
     {
-        if(anim!= null)
-        {
-            anim.Play();
-        }
-       
+        anim.Play();
+
+
+
+
     }
 }
