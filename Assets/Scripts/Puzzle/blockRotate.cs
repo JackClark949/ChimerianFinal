@@ -6,7 +6,8 @@ public class blockRotate : MonoBehaviour
 {
     PlayerInput playerInput;
     InputAction Rotate;
-    
+
+    public GameObject Prompt;
     private bool blockRotation = false;
     private bool blockRotation2 = false;
     public GameObject PuzzlePiece2;
@@ -69,6 +70,8 @@ public class blockRotate : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Prompt.SetActive(true);
+
             blockRotation = true;
             blockRotation2 = true;
 
@@ -80,7 +83,7 @@ public class blockRotate : MonoBehaviour
     {
         blockRotation = false;
         blockRotation2 = false;
-
+        Prompt.SetActive(false);
     }
 
 

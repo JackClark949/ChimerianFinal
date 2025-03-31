@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Animation anim;
+    
     void Start()
     {
         
@@ -15,4 +16,21 @@ public class Door : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            anim.Play();
+        }
+    }
+
+
+
+
+
+
+
+
+
 }
