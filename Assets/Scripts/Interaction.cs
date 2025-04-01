@@ -1,35 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Interaction : MonoBehaviour
 {
-    public float interactionDistance;
-    public GameObject InteractionText;
-    public LayerMask InteractionLayers;
+    PlayerInput playerInput;
+    InputAction PickUpAction;
+    InputAction NoteCloseAction;
+    public playerMovement playermovement;
+    
+    
+    private bool inPickUpRange;
+    public GameObject NoteUI;
+    public GameObject Interactiontext;
+    public cameraController playercam;
+    
 
-    void Update()
+
+    private void Start()
     {
-        RaycastHit hit;
+        playerInput = GetComponent<PlayerInput>();
+        PickUpAction = playerInput.actions.FindAction("PickUp");
+        NoteCloseAction = playerInput.actions.FindAction("NoteClose");
+    }
 
-        if(Physics.Raycast(transform.position, transform.forward, out hit, interactionDistance, InteractionLayers))
+    private void OnTriggerEnter(Collider other)
+    {
+        inPickUpRange = true;
+        Interactiontext.SetActive(true);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        inPickUpRange = false;
+        Interactiontext.SetActive(false);
+    }
+
+
+    public void OpenNote(InputAction.CallbackContext context)
+    {
+        if(context.performed && inPickUpRange == true)
         {
-            if (hit.collider.gameObject.GetComponent<Note>())
-            {
-                InteractionText.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    hit.collider.gameObject.GetComponent<Note>().OpenCloseNote();
-                }
-            }
-            else
-            {
-                InteractionText.SetActive(false);
-            }
+            NoteUI.SetActive(true);
+            Interactiontext.SetActive(true);
+            playermovement.enabled = false;
+            playercam.enabled = false;
+
+
+
         }
-        else
+
+        
+    }
+
+
+    public void CloseNote(InputAction.CallbackContext context)
+    {
+        if (context.performed)
         {
-            InteractionText.SetActive(false);
+            NoteUI.SetActive(false);
+
+            playermovement.enabled = true;
+            playercam.enabled = true;
         }
+        
+
     }
 }

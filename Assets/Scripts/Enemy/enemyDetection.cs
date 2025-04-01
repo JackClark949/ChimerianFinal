@@ -70,9 +70,9 @@ public class enemyDetection : MonoBehaviour
     private void OnDrawGizmos()
     {
         {
-            Gizmos.color = Color.red;
+            /*Gizmos.color = Color.red;
             Vector3 direction = enemysight.TransformDirection(Vector3.forward);
-            Gizmos.DrawWireCube(enemysight.position, direction * fieldOfViewRange);
+            Gizmos.DrawWireCube(enemysight.position, direction * fieldOfViewRange);*/
         }
     }
 }

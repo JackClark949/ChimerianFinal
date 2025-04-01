@@ -6,6 +6,7 @@ public class Note : MonoBehaviour
 {
     public GameObject NoteUI;
     bool toggle;
+    
     public playerMovement player;
     public cameraController Camera;
     public Renderer NoteMesh;

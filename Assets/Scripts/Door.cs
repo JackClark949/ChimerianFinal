@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public Animation anim;
+    public Animator animator;
+    private bool InDoorRange;
     
     void Start()
     {
@@ -19,10 +20,35 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        
+
+        if (CompareTag("Player"))
         {
-            anim.Play();
+            animator.SetBool("isOpen", true);
         }
+        
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+       
+
+        if (CompareTag("Player"))
+        {
+            animator.SetBool("isOpen", true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        InDoorRange = false;
+
+        if (CompareTag("Player"))
+        {
+            animator.SetBool("isOpen", false);
+        }
+        
+        
     }
 
 
