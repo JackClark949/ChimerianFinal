@@ -60,7 +60,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7747537719441718258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.066, y: 9.256, z: 0.939}
+  m_LocalPosition: {x: -11.066, y: 9.268, z: 0.939}
   m_LocalScale: {x: 0.59718, y: 0.017751133, z: 0.69085}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -95,7 +95,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: c6a96094704cb594a9455c46a75e8843, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddcf4d043be85a64785719c05d8bc591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NoteUI: {fileID: 0}
-  player: {fileID: 0}
+  NoteUI: {fileID: 7747537719441718258}
+  player: {fileID: 2372648152029588182, guid: cb71149ecae72fe47947ea3673e440db, type: 3}
+  Camera: {fileID: 3682663008451313026, guid: 98cc5379538099e4c9914b9484ef3bcd, type: 3}
   NoteMesh: {fileID: 7747537719441718262}
