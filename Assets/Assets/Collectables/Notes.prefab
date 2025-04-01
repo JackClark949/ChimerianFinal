@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7747537719441718263}
   - component: {fileID: 7747537719441718262}
   - component: {fileID: 7747537719441718257}
-  - component: {fileID: 7747537719441718256}
+  - component: {fileID: 1350250443}
   m_Layer: 0
   m_Name: Note1
   m_TagString: Untagged
@@ -125,12 +125,12 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7747537719441718258}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7747537719441718256
+  m_Size: {x: 1, y: 45.981674, z: 2.5839224}
+  m_Center: {x: 0, y: 22.490835, z: -0.79196167}
+--- !u!114 &1350250443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,10 +139,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7747537719441718258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddcf4d043be85a64785719c05d8bc591, type: 3}
+  m_Script: {fileID: 11500000, guid: a952f658624a2b34f8f286d430a9c683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NoteUI: {fileID: 7747537719441718258}
-  player: {fileID: 2372648152029588182, guid: cb71149ecae72fe47947ea3673e440db, type: 3}
-  Camera: {fileID: 3682663008451313026, guid: 98cc5379538099e4c9914b9484ef3bcd, type: 3}
-  NoteMesh: {fileID: 7747537719441718262}
+  playermovement: {fileID: 0}
+  NoteUI: {fileID: 0}
+  Interactiontext: {fileID: 0}
+  playercam: {fileID: 0}
