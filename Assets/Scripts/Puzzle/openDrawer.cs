@@ -13,6 +13,7 @@ public class openDrawer : MonoBehaviour
     public void playAnim()
     {
         anim.Play();
+        Debug.Log("Playing Anim");
 
 
 

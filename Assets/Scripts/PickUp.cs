@@ -8,13 +8,16 @@ public class PickUp : MonoBehaviour
 {
     PlayerInput playerinput;
     InputAction pickUp;
-    public Item item = new Item("Item Name", 1);
+    public GameObject player;
+    public GameObject PickUpText;
+    
     private bool pickUpZone = false;
 
     private void Start()
     {
         playerinput = GetComponent<PlayerInput>();
         pickUp = playerinput.actions.FindAction("PickUp");
+        PickUpText.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,14 +25,31 @@ public class PickUp : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
+            PickUpText.SetActive(true);
             pickUpZone = true;
         }
     }
 
-    public void addKeyToInv(InputAction.CallbackContext context)
+    private void OnTriggerExit(Collider other)
     {
-        if (pickUpZone == true && context.performed)
-        Inventory.instance.AddItem(item);
-        gameObject.SetActive(false);
+        if (other.CompareTag("Player"))
+        {
+            PickUpText.SetActive(false);
+            pickUpZone = false;
+        }
+
+
+    }
+
+    public void addKeyToPlayer(InputAction.CallbackContext context)
+    {
+        if(pickUpZone == true && context.performed)
+        {
+            gameObject.transform.SetParent(player.transform);
+            PickUpText.SetActive(false );
+            gameObject.SetActive(false);
+            Debug.Log("Added Key to player");
+
+        }
     }
 }

@@ -10,10 +10,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] Camera playerCam;
     [SerializeField] float raycastRange = 100f;
     [SerializeField] float damage = 10f;
-    
 
+    private PlayerInput playerInput;
     private InputAction shootAction;
     public InputActionAsset inputActionAsset;
+    
     public int ammoCount = 5;
     private int increaseAmmo = 5;
     public int totalAmmo = 10;
@@ -23,13 +24,8 @@ public class Weapon : MonoBehaviour
 
     //private void Start()
     //{
-        //AudioClip.SetActive(false);
+    //AudioClip.SetActive(false);
     //}
-    void Update()
-    {
-        UpdateAmmoText();
-    }
-
     public void OnEnable()
     {
         shootAction = inputActionAsset.FindActionMap("Shoot").FindAction("Fire");
@@ -42,25 +38,34 @@ public class Weapon : MonoBehaviour
         shootAction.Disable();
     }
 
+    void Update()
+    {
+        UpdateAmmoText();
+    }
+
+    
+
     private void Shoot()
     {
-        Raycast();
-        decreaseAmmo();
-        UpdateAmmoText();
+       
+        
+            Raycast();
+            decreaseAmmo();
+            UpdateAmmoText();
+            
+     
+       
+        
     }
 
     public void Reload(InputAction.CallbackContext context)
     {
         if (totalAmmo == 10 && ammoCount == 0)
         {
-            if (context.performed)
-            {
-                totalAmmo -= 5;
-                ammoCount = 5;
-                OnEnable();
-                Debug.Log("Added ammo to ammoCount");
-            }
-            
+            totalAmmo -= 5;
+            ammoCount = 5;
+            OnEnable();
+            Debug.Log("Added ammo to ammoCount");
         }
 
         if (totalAmmo == 5 && ammoCount == 0)
@@ -70,8 +75,9 @@ public class Weapon : MonoBehaviour
             OnEnable();
             Debug.Log("Added Ammo to ammoCount 2");
         }
-        UpdateAmmoText();
+
     }
+   
 
 
 
@@ -115,8 +121,12 @@ public class Weapon : MonoBehaviour
 
         else
         {
-            OnDisable();
-            Debug.Log("Can't shoot");
+            if(ammoCount == 0)
+            {
+                OnDisable();
+                Debug.Log("Can't shoot");
+            }
+            
 
         }
         UpdateAmmoText();
@@ -128,7 +138,7 @@ public class Weapon : MonoBehaviour
         totalAmmo += increaseAmmo;
         if (totalAmmo > 0 && totalAmmo < 5)
         {
-            OnEnable();
+            
 
         }
         UpdateAmmoText();
