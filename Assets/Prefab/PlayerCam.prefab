@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 400
-  player: {fileID: 0}
+  player: {fileID: 8791153725634979788, guid: cb71149ecae72fe47947ea3673e440db, type: 3}
 --- !u!114 &7971754954719210080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,11 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a952f658624a2b34f8f286d430a9c683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionDistance: 2
-  InteractionText: {fileID: 2742131292443901677, guid: d6844d2caad330144974f985fe7fbf6d, type: 3}
-  InteractionLayers:
-    serializedVersion: 2
-    m_Bits: 55
+  playermovement: {fileID: 2372648152029588182, guid: cb71149ecae72fe47947ea3673e440db, type: 3}
+  NoteUI: {fileID: 7648542981599302017, guid: c038824f4d238f744b842f6c6971352e, type: 3}
+  Interactiontext: {fileID: 2742131292443901677, guid: d6844d2caad330144974f985fe7fbf6d, type: 3}
+  playercam: {fileID: 3682663008451313026}
 --- !u!1 &7357336450093198591
 GameObject:
   m_ObjectHideFlags: 0

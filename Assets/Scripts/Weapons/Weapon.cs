@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] Camera playerCam;
     [SerializeField] float raycastRange = 100f;
     [SerializeField] float damage = 10f;
+    
 
     private PlayerInput playerInput;
     private InputAction shootAction;
@@ -19,13 +20,14 @@ public class Weapon : MonoBehaviour
     private int increaseAmmo = 5;
     public int totalAmmo = 10;
     public Text ammo_text;
-    //public float ClipLength = 1f;
-    //public GameObject AudioClip;
+    public float ClipLength;
+    public GameObject AudioClip;
+    
 
-    //private void Start()
-    //{
-    //AudioClip.SetActive(false);
-    //}
+    void Start()
+    {
+        AudioClip.SetActive(false);
+    }
     public void OnEnable()
     {
         shootAction = inputActionAsset.FindActionMap("Shoot").FindAction("Fire");
@@ -47,14 +49,9 @@ public class Weapon : MonoBehaviour
 
     private void Shoot()
     {
-       
-        
             Raycast();
             decreaseAmmo();
             UpdateAmmoText();
-            
-     
-       
         
     }
 
