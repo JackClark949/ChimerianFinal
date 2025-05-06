@@ -11,6 +11,8 @@ TagManager:
   - BlueBook
   - GreenBook
   - Weapon
+  - PauseMenu
+  - ResumeButton
   layers:
   - Default
   - TransparentFX
