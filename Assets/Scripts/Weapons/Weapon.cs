@@ -21,12 +21,12 @@ public class Weapon : MonoBehaviour
     public int totalAmmo = 10;
     public Text ammo_text;
     public float ClipLength;
-    public GameObject AudioClip;
+    
     
 
     void Start()
     {
-        AudioClip.SetActive(false);
+        
     }
     public void OnEnable()
     {
@@ -130,15 +130,11 @@ public class Weapon : MonoBehaviour
 
     }
 
-    public void addAmmo()
+    public void addAmmo(int amount)
     {
-        totalAmmo += increaseAmmo;
-        if (totalAmmo > 0 && totalAmmo < 5)
-        {
-            
-
-        }
+        ammoCount += amount;
         UpdateAmmoText();
+        
 
     }
     private void UpdateAmmoText()

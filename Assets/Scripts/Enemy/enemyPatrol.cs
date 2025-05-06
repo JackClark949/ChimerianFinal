@@ -22,6 +22,7 @@ public class enemyPatrol : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
+       
 
 
         if (patrolPoints.Length > 0)
