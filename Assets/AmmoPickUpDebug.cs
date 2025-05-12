@@ -14,7 +14,11 @@ public class AmmoPickUpDebug : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         pickUpAction = playerInput.actions.FindAction("PickUp");
-        weaponScript = GameObject.FindWithTag("Weapon").GetComponent<Weapon>();
+        if(weaponScript != null)
+        {
+            weaponScript = GameObject.FindWithTag("Weapon").GetComponent<Weapon>();
+        }
+        
        
 
     }
@@ -42,6 +46,7 @@ public class AmmoPickUpDebug : MonoBehaviour
         {
             weaponScript.addAmmo(5);
             weaponScript.OnEnable();
+            Destroy(gameObject);
             
             Debug.Log("Added 5 Ammo");
         }

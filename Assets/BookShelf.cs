@@ -25,7 +25,7 @@ public class BookShelf : MonoBehaviour
     public GameObject BookHolder2;
     public GameObject BookHolder3;
     public GameObject Player;
-    public Camera playerCam;
+    
     private bool InBookShelfRange;
     private BookHolderTrigger bookHolder1Script;
     private BookHolderTrigger2 bookHolder2Script;
@@ -57,8 +57,7 @@ public class BookShelf : MonoBehaviour
         if ((other.CompareTag("Player")))
         {
             InBookShelfRange = true;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            
         }
     }
 
@@ -90,7 +89,7 @@ public class BookShelf : MonoBehaviour
             if (bookHolder1Script.inBookHolderRange1)
             {
                 currentBook.SetParent(BookHolder1.transform);
-                currentBook.localPosition = Vector3.zero; // Optional: position it nicely
+                currentBook.localPosition = Vector3.zero; 
                 currentBook.gameObject.SetActive(true);
 
                 var pickUpScript = currentBook.GetComponent<BookPickUp>();

@@ -176,6 +176,74 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PadLock",
+            "id": "508aa0e4-ce41-4f6a-896b-ff5e9821149a",
+            "actions": [
+                {
+                    "name": "WheelRotate",
+                    "type": "Button",
+                    "id": "7b0fbf7e-32f2-40d0-a265-1a9bdf285c41",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Padlock",
+                    "type": "Button",
+                    "id": "de4b099d-3280-4a5f-bd7a-031db871e0cb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PadlockExit",
+                    "type": "Button",
+                    "id": "001bc5be-7a7c-4314-bf91-c6f6fa2b2eee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b42db438-3e41-4599-a1e5-25dfb633ef34",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WheelRotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1263a7f2-7f28-4439-9c22-1308fd39e347",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Padlock",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50eef824-3b9d-47b8-a2af-0ccc8d0c8479",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PadlockExit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

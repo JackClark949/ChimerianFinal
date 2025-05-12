@@ -13,6 +13,12 @@ TagManager:
   - Weapon
   - PauseMenu
   - ResumeButton
+  - Wheel1
+  - Wheel2
+  - Wheel3
+  - Wheel 1
+  - Wheel 2
+  - Wheel 3
   layers:
   - Default
   - TransparentFX
@@ -21,7 +27,7 @@ TagManager:
   - Water
   - UI
   - 'Character '
-  - 
+  - Bush
   - 
   - 
   - 

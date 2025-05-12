@@ -92,9 +92,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  player: {fileID: 0}
   patrolSpeed: 3
   waypointReachThreshold: 1
+  player: {fileID: 0}
 --- !u!114 &2118883475156071367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   currentHealth: 0
-  MiniGil: {fileID: 1986414491321042834, guid: 3c3f34f914f76b0499fa37a05fa1dde5, type: 3}
+  MiniGil: {fileID: 6235338224400446570, guid: 5b223222d45c21442b42b981d2cce906, type: 3}
 --- !u!114 &2118883475156071385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,10 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrol: {fileID: 2118883475156071364}
   player: {fileID: 0}
-  enemysight: {fileID: 2118883475223818224}
-  enemySightRange: 68
-  fieldOfViewRange: 20
-  minPlayerDetectionDistance: 5
+  enemyAgroRange: 2
 --- !u!1 &1570197542124680175
 GameObject:
   m_ObjectHideFlags: 0

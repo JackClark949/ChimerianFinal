@@ -15,18 +15,20 @@ public class Weapon : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction shootAction;
     public InputActionAsset inputActionAsset;
+    public ParticleSystem muzzleFlash;
     
     public int ammoCount = 5;
     private int increaseAmmo = 5;
     public int totalAmmo = 10;
     public Text ammo_text;
     public float ClipLength;
+    Animation anim;
     
     
 
     void Start()
     {
-        
+        anim = GetComponent<Animation>();
     }
     public void OnEnable()
     {
@@ -52,6 +54,8 @@ public class Weapon : MonoBehaviour
             Raycast();
             decreaseAmmo();
             UpdateAmmoText();
+        muzzleFlash.Play();
+        anim.Play();
         
     }
 

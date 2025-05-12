@@ -1,11 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
-
-
-
 
 public class enemyDetection : MonoBehaviour
 {
@@ -15,15 +12,8 @@ public class enemyDetection : MonoBehaviour
     [SerializeField]
     private Transform player;
     [SerializeField]
-    private Transform enemysight;
-    [SerializeField]
-    private float enemySightRange = 20f;
-    private bool IsPlayerDetected;
-    [SerializeField]
-    private float fieldOfViewRange = 68f;
-    [SerializeField]
-    private float minPlayerDetectionDistance = 1f;
-    private float rayRange = 20f;
+    private float enemyAgroRange = 2f;
+    private bool isChasingPlayer = true;
 
 
     void Start()
@@ -31,55 +21,52 @@ public class enemyDetection : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         enemySpeed = agent.speed;
 
+
+
+
     }
 
     private void Update()
     {
-        CanSeePlayer();
-    }
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-
-
-
-    protected bool CanSeePlayer()
-    {
-        RaycastHit hit;
-        Vector3 rayDirection = player.transform.position - transform.position;
-        if ((Vector3.Angle(rayDirection, transform.forward)) <= fieldOfViewRange * 0.5f)
+        if (distanceToPlayer <= enemyAgroRange)
         {
-            if (Physics.Raycast(enemysight.position, enemysight.forward, out hit, fieldOfViewRange))
+            if (!isChasingPlayer)
             {
-                patrol.StopPatrol();
 
-                //Debug.Log("Chasing Player");
-
-                return (hit.transform.CompareTag("Player"));
-
+                patrol.StopCoroutine(patrol.Patrol());
+                isChasingPlayer = true;
             }
-
+            agent.SetDestination(player.position);
         }
-        patrol.Patrol();
-        return false;
-
-
-
-
-
-
-
-
-
-    }
-
-    private void OnDrawGizmos()
-    {
+        else
         {
-            Gizmos.color = Color.red;
-            Vector3 direction = enemysight.TransformDirection(Vector3.forward);
-            Gizmos.DrawWireCube(enemysight.position, direction * minPlayerDetectionDistance);
+            if (isChasingPlayer)
+            {
+
+                patrol.StartCoroutine(patrol.Patrol());
+                isChasingPlayer = false;
+            }
         }
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
