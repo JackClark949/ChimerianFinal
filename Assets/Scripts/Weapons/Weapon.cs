@@ -10,6 +10,9 @@ public class Weapon : MonoBehaviour
     [SerializeField] Camera playerCam;
     [SerializeField] float raycastRange = 100f;
     [SerializeField] float damage = 10f;
+    [SerializeField] private AudioClip GunShootClip;
+    [SerializeField] private AudioClip GunReloadClip;
+    [SerializeField] private AudioClip GunDryFireClip;
     
 
     private PlayerInput playerInput;
@@ -21,7 +24,8 @@ public class Weapon : MonoBehaviour
     private int increaseAmmo = 5;
     public int totalAmmo = 10;
     public Text ammo_text;
-    public float ClipLength;
+    private AudioSource audioSource; 
+    
     Animation anim;
     
     
@@ -29,6 +33,7 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animation>();
+        audioSource = GetComponent<AudioSource>();
     }
     public void OnEnable()
     {
@@ -56,6 +61,14 @@ public class Weapon : MonoBehaviour
             UpdateAmmoText();
         muzzleFlash.Play();
         anim.Play();
+        audioSource.clip = GunShootClip;
+        audioSource.Play();
+
+        if(ammoCount == 0)
+        {
+            audioSource.clip = GunDryFireClip;
+            audioSource.Play();
+        }
         
     }
 
@@ -67,6 +80,8 @@ public class Weapon : MonoBehaviour
             ammoCount = 5;
             OnEnable();
             Debug.Log("Added ammo to ammoCount");
+            audioSource.clip = GunReloadClip;
+            audioSource.Play();
         }
 
         if (totalAmmo == 5 && ammoCount == 0)
