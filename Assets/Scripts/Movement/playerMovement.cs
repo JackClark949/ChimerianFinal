@@ -9,6 +9,9 @@ public class playerMovement : MonoBehaviour
     private InputAction moveAction;
     [SerializeField] private Movement1 Movement_;
     private bool isCrouching;
+    [SerializeField] private AudioClip PlayerMovementHouseClip;
+    [SerializeField] private AudioClip PlayerMovementGardenClip;
+    private AudioSource audioSource; 
 
 
     CharacterController controller;
@@ -21,6 +24,8 @@ public class playerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
         controller = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = PlayerMovementHouseClip;
     }
 
     // Update is called once per frame
@@ -51,8 +56,10 @@ public class playerMovement : MonoBehaviour
         Movement_.currentSpeed = Mathf.MoveTowards(Movement_.currentSpeed, targetSpeed, Movement_.acceleration * Time.deltaTime);
         controller.Move(direction * Movement_.currentSpeed * Time.deltaTime);
 
+       
+    
 
-    }
+}
 
     public void Sprint(InputAction.CallbackContext context)
     {
@@ -82,7 +89,16 @@ public class playerMovement : MonoBehaviour
         [HideInInspector] public bool isCrouching;
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wood Floor"))
+        {
 
+            audioSource.Play();
+            Debug.Log("Collider");
+        }
+
+    }
 
 }
 

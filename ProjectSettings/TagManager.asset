@@ -19,6 +19,8 @@ TagManager:
   - Wheel 1
   - Wheel 2
   - Wheel 3
+  - Wood Floor
+  - PlayerFeet
   layers:
   - Default
   - TransparentFX
