@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class enemyAttacking : MonoBehaviour
 {
-    //PlayerHealth Ref to call take damage method
     public playerHealth playerHealth;
     [SerializeField]
     float damage = 20f;
@@ -14,16 +13,23 @@ public class enemyAttacking : MonoBehaviour
     [SerializeField]
     float nextAttackTime = 5f;
 
+
+
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             if (Time.time > nextAttackTime)
             {
-                nextAttackTime = Time.time + attackCoolDown;
                 playerHealth.TakeDamage(damage);
-
+                nextAttackTime = Time.time + attackCoolDown;
             }
+
+
+
+
 
         }
     }
