@@ -7,7 +7,8 @@ public class miniBer : MonoBehaviour
 {
     NavMeshAgent agent;
     public Transform player;
-    
+    public Transform berSight;
+    private float rayCast = 20f;
 
    
 
@@ -20,12 +21,27 @@ public class miniBer : MonoBehaviour
 
     private void Awake()
     {
-        player = FindObjectOfType<playerMovement>().transform;
+        player =    FindObjectOfType<playerMovement>().transform;
     }
 
     private void DetectPlayer()
     {
-        agent.SetDestination(player.position);
+        RaycastHit hit;
+        if(Physics.Raycast(berSight.position, berSight.forward, out hit, rayCast))
+        {
+            
+            if(player != null)
+            {
+                hit.transform.CompareTag("Player");
+                agent.SetDestination(player.transform.position);
+            }
+               
+            
+            
+
+
+
+        }
     }
 
     // Update is called once per frame
