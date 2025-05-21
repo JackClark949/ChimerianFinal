@@ -34,18 +34,6 @@ public class miniGilAttack : MonoBehaviour
 
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
         }
     }
 
