@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1940330392961875717}
-  - component: {fileID: 2118883475156071387}
   - component: {fileID: 2118883475156071365}
   - component: {fileID: 2118883475156071364}
   - component: {fileID: 2118883475156071367}
   - component: {fileID: 2118883475156071366}
   - component: {fileID: 2118883475156071385}
+  - component: {fileID: 7387068501638636028}
   m_Layer: 0
   m_Name: BerRigFBX
   m_TagString: Untagged
@@ -39,19 +39,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 177.59, z: 0}
---- !u!65 &2118883475156071387
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1271880531584394687}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.6167951, z: 1.4391396}
-  m_Center: {x: -1.6957818e-10, y: 0.30839872, z: -0.21957022}
 --- !u!195 &2118883475156071365
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -61,7 +48,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1271880531584394687}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -70,7 +57,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
+  m_Height: 0.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -108,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 0}
   damage: 20
-  attackCoolDown: 1
+  attackCoolDown: 5
   nextAttackTime: 5
 --- !u!114 &2118883475156071366
 MonoBehaviour:
@@ -140,6 +127,19 @@ MonoBehaviour:
   patrol: {fileID: 2118883475156071364}
   player: {fileID: 0}
   enemyAgroRange: 2
+--- !u!65 &7387068501638636028
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271880531584394687}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.68273115, y: 0.9906562, z: 0.6171956}
+  m_Center: {x: 0.0065514445, y: 0.6009507, z: -0.07068497}
 --- !u!1 &1570197542124680175
 GameObject:
   m_ObjectHideFlags: 0
