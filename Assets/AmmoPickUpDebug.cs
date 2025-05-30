@@ -44,8 +44,8 @@ public class AmmoPickUpDebug : MonoBehaviour
     {
         if (context.performed && inPickUpZone == true)
         {
-            weaponScript.addAmmo(5);
-            weaponScript.OnEnable();
+            //weaponScript.AddAmmo(5);
+            weaponScript.UpdateAmmoText();
             Destroy(gameObject);
             
             Debug.Log("Added 5 Ammo");

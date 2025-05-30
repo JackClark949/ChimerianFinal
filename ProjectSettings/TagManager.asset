@@ -21,6 +21,7 @@ TagManager:
   - Wheel 3
   - Wood Floor
   - PlayerFeet
+  - PickUp
   layers:
   - Default
   - TransparentFX
