@@ -177,16 +177,9 @@ public class ClockPuzzleManager : MonoBehaviour
 
     private void OpenClock()
     {
-        int currentHour = Mathf.RoundToInt((currentHourRotation % 360f) / 30f) % 12;
-        int currentMinute = Mathf.RoundToInt((currentMinuteRotation % 360f) / 6f) % 60;
-
-        if (currentHour < 0) currentHour += 12;
-        if (currentMinute < 0) currentMinute += 60;
-       
-
-        if(currentHour == targetHourCount && currentMinute == targetMinuteCount)
+        if(currentHourRotation == 4 && currentMinuteRotation == 5)
         {
-            Debug.Log("Puzzle Solved");
+            Debug.Log("PuzzleSolved");
         }
         
     }

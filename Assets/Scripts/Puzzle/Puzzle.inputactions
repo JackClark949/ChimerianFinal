@@ -6,18 +6,18 @@
             "id": "1c98893f-c332-438b-8b92-569d5449584e",
             "actions": [
                 {
-                    "name": "PlaceBook",
+                    "name": "OpenPrompt",
                     "type": "Button",
-                    "id": "0010440d-9a4b-4fe7-b5fd-a4a3c8802b7e",
+                    "id": "b06a45fc-a3c9-4fb7-968c-f0c12f8b8fd5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RemoveBook",
+                    "name": "ClosePrompt",
                     "type": "Button",
-                    "id": "e137a4cc-3415-4566-87fe-74adc4dd38db",
+                    "id": "930eff05-bbd9-4b13-ad6f-3d83f0ec7ecd",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -27,23 +27,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "cf8814dd-3234-489c-9d31-20ab9aff5ca8",
+                    "id": "ba81df43-7fbd-4571-80af-6cb86defad47",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PlaceBook",
+                    "action": "OpenPrompt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1e5db01f-8943-484f-826f-51738d331b7b",
-                    "path": "<Keyboard>/p",
+                    "id": "f32e0f52-58d2-4bcf-819d-f6178883ddff",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RemoveBook",
+                    "action": "ClosePrompt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

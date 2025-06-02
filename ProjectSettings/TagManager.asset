@@ -20,8 +20,9 @@ TagManager:
   - Wheel 2
   - Wheel 3
   - Wood Floor
-  - PlayerFeet
   - PickUp
+  - Key
+  - Wheel 4
   layers:
   - Default
   - TransparentFX

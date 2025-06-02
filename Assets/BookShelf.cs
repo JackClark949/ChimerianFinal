@@ -2,203 +2,394 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-[System.Serializable]
-
-public class BookHolder
-{
-    public GameObject bookHolder;
-    public string desiredBookTag;
-    public GameObject currentlyPlacedBook;
-    public bool isCorrectlyPlaced;
-}
+using Unity.UI;
+using Unity.VisualScripting;
+using UnityEngine.UI;
+using UnityEngine.InputSystem.HID;
 
 
 public class BookShelf : MonoBehaviour
 {
-    public List<BookHolder> bookHolders = new List<BookHolder>();
+
 
     PlayerInput playerInput;
     InputAction PlaceBookAction;
     InputAction RemoveBookAction;
+    InputAction OpenPromptAction;
+    InputAction ClosePromptAction;
 
     public GameObject BookHolder1;
     public GameObject BookHolder2;
     public GameObject BookHolder3;
+    private Transform RedBook;
+    private Transform GreenBook;
+    private Transform BlueBook;
     public GameObject Player;
-    
+
+    public GameObject BookShelfPrompt;
+
+
+
+
     private bool InBookShelfRange;
+    private bool RedBookSelected = false;
+    private bool GreenBookSelected = false;
+    private bool BlueBookSelected = false;
     private BookHolderTrigger bookHolder1Script;
     private BookHolderTrigger2 bookHolder2Script;
     private BookHolderTrigger3 bookHolder3Script;
     private Animation anim;
+    private BookPickUp bookPickUpScript;
+    public playerMovement playerMovement;
+    
+    
 
     // Start is called before the first frame update
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-        PlaceBookAction = playerInput.actions.FindAction("PlaceBook");
-        RemoveBookAction = playerInput.actions.FindAction("RemoveBook");
+        
+        OpenPromptAction = playerInput.actions.FindAction("OpenPrompt");
+        ClosePromptAction = playerInput.actions.FindAction("ClosePrompt");
         bookHolder1Script = BookHolder1.GetComponent<BookHolderTrigger>();
         bookHolder2Script = BookHolder2.GetComponent<BookHolderTrigger2>();
         bookHolder3Script = BookHolder3.GetComponent<BookHolderTrigger3>();
+       
+        BookShelfPrompt.gameObject.SetActive(false);
         anim = GetComponent<Animation>();
-
-
-
-    }
-
-    private void Update()
-    {
         
+
+
     }
 
-    private void OnTriggerEnter(Collider other)
+
+
+    public void OpenBookShelfPrompt(InputAction.CallbackContext context)
     {
-        if ((other.CompareTag("Player")))
+        if (bookHolder1Script.inBookHolderRange1 == true && context.performed)
         {
-            InBookShelfRange = true;
+            BookShelfPrompt.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            playerMovement.enabled = false;
             
+
+        }
+
+
+
+        else if (bookHolder2Script.inBookHolderRange2 == true && context.performed)
+        {
+            BookShelfPrompt.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+
+        }
+
+        else if (bookHolder3Script.inBookHolderRange3 == true && context.performed)
+        {
+            BookShelfPrompt.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+        }
+
+    }
+
+    public void RedBookButton()
+    {
+        foreach (Transform child in Player.transform)
+        {
+            if (child.gameObject.CompareTag("RedBook"))
+            {
+                Debug.Log("RedBook found and selected");
+                RedBook = child;
+                RedBookSelected = true;
+                BlueBookSelected = false;
+                GreenBookSelected = false;
+
+
+                return;
+            }
+
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void BlueBookButton()
     {
-        if ((other.CompareTag("Player")))
+        foreach (Transform child in Player.transform)
         {
-            InBookShelfRange = false;
+            if (child.gameObject.CompareTag("BlueBook"))
+            {
+                Debug.Log("BlueBook found and selected");
+                BlueBook = child;
+                BlueBookSelected = true;
+                GreenBookSelected = false;
+                RedBookSelected = false;
+
+                return;
+            }
         }
     }
 
-    public void PlaceBook(InputAction.CallbackContext context)
+    public void GreenBookButton()
     {
-        Transform currentBook = null;
-
-        for (int i = 0; i < Player.transform.childCount; i++)
+        foreach (Transform child in Player.transform)
         {
-            Transform child = Player.transform.GetChild(i);
-
-            if (child.CompareTag("RedBook") || child.CompareTag("GreenBook") || child.CompareTag("BlueBook"))
+            if (child.gameObject.CompareTag("GreenBook"))
             {
-                currentBook = child;
-                break;
+                Debug.Log("GreenBook found and selected");
+                GreenBook = child;
+                GreenBookSelected = true;
+                RedBookSelected = false;
+                BlueBookSelected = false;
+
+                return;
             }
         }
+    }
 
-        if (context.performed && currentBook != null)
+    public void CloseBookShelfPrompt(InputAction.CallbackContext context)
+    {
+        if (bookHolder1Script.inBookHolderRange1 == true && context.performed)
         {
-            if (bookHolder1Script.inBookHolderRange1)
-            {
-                currentBook.SetParent(BookHolder1.transform);
-                currentBook.localPosition = Vector3.zero; 
-                currentBook.gameObject.SetActive(true);
+            BookShelfPrompt.gameObject.SetActive(false);
+        }
 
-                var pickUpScript = currentBook.GetComponent<BookPickUp>();
-                if (pickUpScript != null)
-                {
-                    pickUpScript.CanBePickedUp = false;
-                }
-            }
+        else if (bookHolder2Script.inBookHolderRange2 == true && context.performed)
+        {
+            BookShelfPrompt.gameObject.SetActive(false);
+        }
 
-            else if (bookHolder2Script.inBookHolderRange2)
-            {
-                currentBook.SetParent(BookHolder2.transform);
-                currentBook.localPosition = Vector3.zero; 
-                currentBook.gameObject.SetActive(true);
+        else if (bookHolder3Script.inBookHolderRange3 == true && context.performed)
+        {
+            BookShelfPrompt.gameObject.SetActive(false);
+        }
 
-                var pickUpScript = currentBook.GetComponent<BookPickUp>();
-                if (pickUpScript != null)
-                {
-                    pickUpScript.CanBePickedUp = false;
-                }
-            }
+    }
 
-            else if (bookHolder3Script.inBookHolderRange3)
-            {
-                currentBook.SetParent(BookHolder3.transform);
-                currentBook.localPosition = Vector3.zero; 
-                currentBook.gameObject.SetActive(true);
-                var pickUpScript = currentBook.GetComponent<BookPickUp>();
-                if (pickUpScript != null)
-                {
-                    pickUpScript.CanBePickedUp = false;
-                }
-            }
+    public void PlaceBook()
+    {
+        //Prevents multiple books being placed on same shelf when a book is placed child count is 1 so checks to see if anything is above that 
+        if (BookHolder1.transform.childCount > 1 && BookHolder2.transform.childCount > 1 && BookHolder3.transform.childCount > 1)
+        {
+            Debug.Log("BookAlreadyPlaced");
+            return;
+        }
 
+        //Checks if BookHolder has a free space and player is in its trigger zone and checks what book is selected
+        else if (BookHolder1.transform.childCount == 0 && bookHolder1Script.inBookHolderRange1 == true && RedBookSelected == true)
+        {
+            RedBook.SetParent(BookHolder1.transform);
+            RedBook.gameObject.SetActive(true);
+
+            RedBook.localPosition = new Vector3(0.337f, -0.307f, -0.218f);
+            RedBook.localRotation = Quaternion.Euler(0, 3.07f, 0);
+            BookShelfPrompt.gameObject.SetActive(false);
+            playerMovement.enabled = true;
+            
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            DisableBookPickup(RedBook);
+
+
+        }
+
+        else if (BookHolder1.transform.childCount == 0 && bookHolder1Script.inBookHolderRange1 == true && BlueBookSelected == true)
+        {
+            BlueBook.SetParent(BookHolder1.transform);
+            BlueBook.gameObject.SetActive(true);
+            BlueBook.localPosition = new Vector3(0.337f, -0.307f, -0.218f);
+            BlueBook.localRotation = Quaternion.Euler(0, 3.07f, 0);
+            BookShelfPrompt.gameObject.SetActive(false);
+            playerMovement.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            DisableBookPickup(BlueBook);
+
+
+
+        }
+
+        else if (BookHolder1.transform.childCount == 0 && bookHolder1Script.inBookHolderRange1 == true && GreenBookSelected == true)
+        {
+            GreenBook.SetParent(BookHolder1.transform);
+            GreenBook.gameObject.SetActive(true);
+            GreenBook.localPosition = new Vector3(0.337f, -0.307f, -0.218f);
+            GreenBook.localRotation = Quaternion.Euler(0, 3.07f, 0);
+            playerMovement.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            BookShelfPrompt.gameObject.SetActive(false);
+            DisableBookPickup(GreenBook);
+
+
+
+
+        }
+
+        else if (BookHolder2.transform.childCount == 0 && bookHolder2Script.inBookHolderRange2 == true && RedBookSelected == true)
+        {
+            RedBook.SetParent(BookHolder2.transform);
+            RedBook.gameObject.SetActive(true);
+            RedBook.localPosition = new Vector3(0.003f, -0.008f, -0.164f);
+            RedBook.localRotation = Quaternion.Euler(2.867f, -2.099f, -279.682f);
+            playerMovement.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            BookShelfPrompt.gameObject.SetActive(false);
+            DisableBookPickup(RedBook);
+
+
+
+
+
+        }
+
+        else if (BookHolder2.transform.childCount == 0 && bookHolder2Script.inBookHolderRange2 == true && BlueBookSelected == true)
+        {
+            BlueBook.SetParent(BookHolder2.transform);
+            BlueBook.gameObject.SetActive(true);
+            BlueBook.localPosition = new Vector3(0.003f, -0.008f, -0.164f);
+            BlueBook.localRotation = Quaternion.Euler(2.867f, -2.099f, -279.682f);
+            playerMovement.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            BookShelfPrompt.gameObject.SetActive(false);
+            DisableBookPickup(BlueBook);
+
+
+
+        }
+
+        else if (BookHolder2.transform.childCount == 0 && bookHolder2Script.inBookHolderRange2 == true && GreenBookSelected == true)
+        {
+            GreenBook.SetParent(BookHolder2.transform);
+            GreenBook.gameObject.SetActive(true);
+            GreenBook.localPosition = new Vector3(0.003f, -0.008f, -0.164f);
+            GreenBook.localRotation = Quaternion.Euler(2.867f, -2.099f, -279.682f);
+            playerMovement.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            BookShelfPrompt.gameObject.SetActive(false);
+            DisableBookPickup(GreenBook);
+
+
+        }
+
+        else if (BookHolder3.transform.childCount == 0 && bookHolder3Script.inBookHolderRange3 == true && RedBookSelected == true)
+        {
+            RedBook.SetParent(BookHolder3.transform);
+            RedBook.gameObject.SetActive(true);
+            playerMovement.enabled = true;
+            RedBook.transform.localPosition = Vector3.zero;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            BookShelfPrompt.gameObject.SetActive(false);
+            DisableBookPickup(RedBook);
+
+
+
+
+        }
+
+        else if (BookHolder3.transform.childCount == 0 && bookHolder3Script.inBookHolderRange3 == true && BlueBookSelected == true)
+        {
+            BlueBook.SetParent(BookHolder3.transform);
+            BlueBook.gameObject.SetActive(true);
+            BlueBook.transform.localPosition = Vector3.zero;
+
+            BookShelfPrompt.gameObject.SetActive(false);
+            playerMovement.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            DisableBookPickup(BlueBook);
+            Cursor.visible = false;
+            
+
+        }
+
+        else if (BookHolder3.transform.childCount == 0 && bookHolder3Script.inBookHolderRange3 == true && GreenBookSelected == true)
+        {
+            GreenBook.SetParent(BookHolder3.transform);
+            GreenBook.gameObject.SetActive(true);
+            GreenBook.transform.localPosition = Vector3.zero;
+
+            BookShelfPrompt.gameObject.SetActive(false);
+            playerMovement.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            DisableBookPickup(GreenBook);
+
+
+
+
+
+
+        }
+        if (BookHolder1.transform.GetChild(0).gameObject.CompareTag("RedBook") && BookHolder2.transform.GetChild(0).gameObject.CompareTag("GreenBook") && BookHolder3.transform.GetChild(0).gameObject.CompareTag("BlueBook"))
+        {
+            Debug.Log("SOLVED");
             MoveBookShelf();
         }
-
-       
     }
 
-    public void RemoveBook(InputAction.CallbackContext context)
+
+
+
+    public void RemoveBook()
     {
-        Transform currentlyPlacedBook = null;
-
-        if (bookHolder1Script.inBookHolderRange1 && context.performed)
+        if (bookHolder1Script.inBookHolderRange1 && BookHolder1.transform.childCount == 1)
         {
-            currentlyPlacedBook = BookHolder1.transform.GetChild(0);
-            currentlyPlacedBook.SetParent(Player.transform);
-
-
-
+            RemoveBookFromShelf(BookHolder1.transform.GetChild(0));
+            BookShelfPrompt.SetActive(false);
+            playerMovement.enabled = true;
+            return;
         }
 
-        else if (bookHolder2Script.inBookHolderRange2 && context.performed)
+        // Remove from BookHolder2 only if player is in range
+        if (bookHolder2Script.inBookHolderRange2 && BookHolder2.transform.childCount == 1)
         {
-            currentlyPlacedBook = BookHolder2.transform.GetChild(0);
-            currentlyPlacedBook.SetParent(Player.transform);
+            RemoveBookFromShelf(BookHolder2.transform.GetChild(0));
+            BookShelfPrompt.SetActive(false);
+            playerMovement.enabled = true;
+            return;
         }
 
-        else if (bookHolder3Script.inBookHolderRange3 && context.performed)
+        // Remove from BookHolder3 only if player is in range
+        if (bookHolder3Script.inBookHolderRange3 && BookHolder3.transform.childCount == 1)
         {
-            currentlyPlacedBook = BookHolder3.transform.GetChild(0);
-            currentlyPlacedBook.SetParent(Player.transform);
+            RemoveBookFromShelf(BookHolder3.transform.GetChild(0));
+            BookShelfPrompt.SetActive(false);
+            playerMovement.enabled = true;
+            return;
         }
-        
 
-        
     }
+
+    private void DisableBookPickup(Transform book)
+    {
+        var pickUpScript = book.GetComponent<BookPickUp>();
+        if (pickUpScript != null)
+        {
+            pickUpScript.CanBePickedUp = false;
+        }
+    }
+
 
     private void MoveBookShelf()
     {
-        bool RedTrue = false;
-        bool BlueTrue = false;
-        bool GreenTrue = false;
 
-        if (BookHolder1.transform.childCount > 0)
-        {
-            Transform book = BookHolder1.transform.GetChild(0);
-            if (book.CompareTag("RedBook"))
-            {
-                RedTrue = true;
-            }
-        }
-        if (BookHolder2.transform.childCount > 0)
-        {
-            Transform book = BookHolder2.transform.GetChild(0);
-            if (book.CompareTag("GreenBook"))
-            {
-                GreenTrue = true;
-            }
-        }
+        Debug.Log("PuzzleSolved");
+        anim.Play();
 
-        if (BookHolder3.transform.childCount > 0)
-        {
-            Transform book = BookHolder3.transform.GetChild(0);
-            if (book.CompareTag("BlueBook"))
-            {
-                BlueTrue = true;
-            }
-        }
+    }
 
-        if(RedTrue == true && BlueTrue == true && GreenTrue == true)
-        {
-            Debug.Log("PuzzleSolved");
-            BookHolder1.transform.GetChild(0).gameObject.SetActive(false);
-            BookHolder2.transform.GetChild(0).gameObject.SetActive(false);
-            BookHolder3.transform.GetChild(0).gameObject.SetActive(false);
-
-            anim.Play();
-        }
+    private void RemoveBookFromShelf(Transform book)
+    {
+        book.SetParent(Player.transform);
+        book.gameObject.SetActive(false);
+        
     }
 }
+

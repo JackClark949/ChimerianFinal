@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Chimerian.unity
     guid: 0dea9639a280c54419ab25f4cda82609
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 9a82e5a2ccab7fc4f9bf74f1dff521ba
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: aaa37ac3eefcf8943b37c2f007d35caa, type: 2}

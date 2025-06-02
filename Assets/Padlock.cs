@@ -20,6 +20,8 @@ public class Padlock : MonoBehaviour
     private int CurrentWheelRotation = 0;
     private int CurrentWheelRotation2 = 0;
     private int CurrentWheelRotation3 = 0;
+    private int CurrentWheelRotation4 = 0;
+    public GateOpen GardenGate;
 
 
 
@@ -30,6 +32,7 @@ public class Padlock : MonoBehaviour
         padLockAction = playerInput.actions.FindAction("Padlock");
         padLockExitAction = playerInput.actions.FindAction("PadlockExit");
         WheelRotateAction = playerInput.actions.FindAction("WheelRotate");
+        
 
         cam.gameObject.SetActive(false);
     }
@@ -88,7 +91,7 @@ public class Padlock : MonoBehaviour
                 CurrentWheelRotation++;
                 Debug.Log(CurrentWheelRotation);
             }
-            else if (CurrentWheelRotation >= 8)
+            else if (CurrentWheelRotation >= 9)
             {
                 CurrentWheelRotation = 0;
             }
@@ -97,8 +100,9 @@ public class Padlock : MonoBehaviour
             {
                 transform.GetChild(2).transform.Rotate(0, 0, -40);
                 CurrentWheelRotation2++;
+                Debug.Log(CurrentWheelRotation2);
             }
-            else if (CurrentWheelRotation2 >= 8)
+            else if (CurrentWheelRotation2 >= 9)
             {
                 CurrentWheelRotation2 = 0;
             }
@@ -107,16 +111,29 @@ public class Padlock : MonoBehaviour
             {
                 transform.GetChild(3).transform.Rotate(0, 0, -40);
                 CurrentWheelRotation3++;
+                Debug.Log(CurrentWheelRotation3);
 
             }
 
-            else if (CurrentWheelRotation3 >= 8)
+            else if (CurrentWheelRotation3 >= 9)
             {
                 CurrentWheelRotation3 = 0;
             }
 
 
 
+        }
+
+        if(context.performed && hit.collider.CompareTag("Wheel 4") && InPadlockRange == true)
+        {
+            transform.GetChild(4).transform.Rotate(0, 0, -40);
+            CurrentWheelRotation4++;
+            Debug.Log(CurrentWheelRotation4);
+        }
+
+        else if (CurrentWheelRotation4 >= 9)
+        {
+            CurrentWheelRotation4 = 0;
         }
 
 
@@ -126,9 +143,15 @@ public class Padlock : MonoBehaviour
 
     private void UnlockPadLock()
     {
-        if (CurrentWheelRotation == 3 && CurrentWheelRotation2 == 7 && CurrentWheelRotation3 == 4)
+        if (CurrentWheelRotation == 1 && CurrentWheelRotation2 == 8 && CurrentWheelRotation3 == 8 && CurrentWheelRotation4 == 3)
         {
-            Debug.Log("Unlocked");
+            cam.gameObject.SetActive(false);
+            GardenGate.OpenGate();
+            playerCam.gameObject.SetActive(true);
+            player.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            
         }
     }
 
